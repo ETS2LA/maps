@@ -37,6 +37,7 @@ The TruckSim Maps repo contains the following projects:
 
 ### parser
 
+### linux
 `parser` is a CLI tool that parses map data in ATS/ETS2/mod files and outputs JSON and
 PNG files.
 
@@ -64,7 +65,42 @@ Parsing can take a couple of minutes, depending on the machine and the installed
 > - All released map DLCs are supported.
 > - Third-party map mods are supported(Not tested with every mods).
 
+### windows
+`parser` is a CLI tool that parses map data in ATS/ETS2/mod files and outputs JSON and
+PNG files.
+
+```shell
+
+# If your console is in a other folder e.g.: C:\photos of my cat
+cd (disk) e.g: D:\maps\packages\clis\parser
+.\run-parser.bat -g pathToGameDirectory -m pathToModDirectory -o dirToWriteFilesTo
+```
+
+### Options
+
+| Short option    | Long option  | Default value | Description                                                       |
+| --------------- | ------------ | ------------- | ----------------------------------------------------------------- |
+| -g              | --gameDir    | None          | Path to ATS/ETS2 game dir (the one with all the .scs files)       |
+| -m              | --modsDir    | None          | Path to ATS/ETS2 mods dir (the one with all the mods files)       |
+| -l              | --gameLog    | None          | Path to game log file (game.log.txt), used to read mod load order |
+| -o              | --outputDir  | None          | Path to dir JSON files should be written to                       |
+| (Not available) | --includeDlc | True          | Whether include DLC files or not                                  |
+| (Not available) | --onlyDefs   | False         | Parse data from /def files, only                                  |
+| (Not available) | --dryRun     | False         | Don't write out any files                                         |
+| (Not available) | --debug      | False         | Set debug mode to print more messages                             |
+
+Parsing can take a couple of minutes, depending on the machine and the installed map DLCs and installed mods.
+
+> [!NOTE]
+>
+> - All released map DLCs are supported.
+> - Third-party map mods are supported(Not tested with every mods).
+
+
+
 ### generator
+
+### linux
 
 `generator` is a CLI tool that generates GeoJSON, PMTiles and [MapLibre](https://maplibre.org/)
 [spritesheet files](https://maplibre.org/maplibre-style-spec/sprite/) from `parser` output.
@@ -91,6 +127,39 @@ npx generator contours -m usa -m europe -i dirWithParserOutput -o dirToWriteFile
 # generate ATS achievements.geojson file
 npx generator achievements -m usa -i dirWithParserOutput -o dirToWriteFileTo
 ```
+
+### windows
+
+`generator` is a CLI tool that generates GeoJSON, PMTiles and [MapLibre](https://maplibre.org/)
+[spritesheet files](https://maplibre.org/maplibre-style-spec/sprite/) from `parser` output.
+
+```shell
+# If your console is in a other folder e.g.: C:\photos of my cat
+cd (disk) e.g: D:\maps\packages\clis\generator
+
+# generate ATS pmtiles file
+.\run-generator.bat map -m usa -i dirWithParserOutput -o dirToWriteFilesTo
+
+# generate ETS2 pmtiles file
+.\run-generator.bat map -m europe -i dirWithParserOutput -o dirToWriteFilesTo
+
+# generate combined ATS and ETS2 cities.geojson file
+.\run-generator.bat cities -m usa -m europe -i dirWithParserOutput -o dirToWriteFilesTo
+
+# generate ATS and ETS2 footprints pmtiles files
+.\run-generator.bat footprints -m usa -m europe -i dirWithParserOutput -o dirToWriteFilesTo
+
+# generate spritesheet files
+.\run-generator.bat spritesheet -i dirWithParserOutput -o dirToWriteFilesTo
+
+# generate ATS and ETS2 contours (aka elevations) pmtiles files
+.\run-generator.bat contours -m usa -m europe -i dirWithParserOutput -o dirToWriteFilesTo
+
+# generate ATS achievements.geojson file
+.\run-generator.bat achievements -m usa -i dirWithParserOutput -o dirToWriteFileTo
+```
+
+
 
 > [!IMPORTANT]
 > PMTiles output requires [tippecanoe](https://github.com/felt/tippecanoe) to be installed.
