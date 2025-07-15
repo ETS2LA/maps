@@ -21,7 +21,7 @@
     "prettier": "^3.1.1",
     "prettier-plugin-organize-imports": "^3.2.4",
     "typescript": "^5.4.2",
-    "vitest": "^2.1.8"
+    "vitest": "^3.2.4"
   },
   "scripts": {
     "prepare": "husky install",
@@ -33,5 +33,9 @@
       "prettier --write"
     ],
     "**/*": "prettier --write --ignore-unknown"
+  },
+  "dependencies": {
+    "spritesmith": "3.5.1",
+    "vite": "7.0.4"
   }
 }

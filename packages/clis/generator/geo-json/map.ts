@@ -99,14 +99,16 @@ export function convertToMapGeoJson(
     .y(e => e.y);
   let lutSize = 0;
   const prefabNodeUids = new Set<bigint>(
-    prefabs.values().flatMap(p => {
+    Array.from(prefabs.values()).flatMap(p => {
       assert(p.nodeUids.every(uid => nodes.has(uid.toString())));
       return p.nodeUids;
     }),
   );
 
   logger.log('creating map areas...');
-  const mapAreaFeatures = mapAreas.values().map(a => areaToFeature(a, nodes));
+  const mapAreaFeatures = Array.from(mapAreas.values()).map(a =>
+    areaToFeature(a, nodes),
+  );
 
   // TODO ferry lines shown are dependent on DLCs present.
   logger.log('creating ferry/train lines...');
@@ -126,7 +128,7 @@ export function convertToMapGeoJson(
     }
   }
   const countriesByCityName = new Map<string, Country>(
-    [...cities.values()]
+    Array.from(cities.values())
       .map(c => [c.name, countries.get(c.countryToken)])
       .filter((tuple): tuple is [string, Country] => tuple[1] != null),
   );
@@ -477,9 +479,9 @@ export function convertToMapGeoJson(
   logger.log('creating cities...');
 
   const citiesByCountryIsoA2 = getCitiesByCountryIsoA2();
-  let rankedCities: IteratorObject<CityWithScaleRank>;
+  let rankedCities: CityWithScaleRank[];
   if (map === 'usa') {
-    rankedCities = cities.values().map(c => {
+    rankedCities = Array.from(cities.values()).map(c => {
       const toKey = (city: string, state: string) =>
         (city + state).toLowerCase().replace(/[^A-Za-z]/g, '');
       const key = toKey(c.name, c.countryToken);
@@ -511,7 +513,7 @@ export function convertToMapGeoJson(
         .replace(/\p{Diacritic}/gu, '')
         .toLowerCase();
 
-    rankedCities = cities.values().map(c => {
+    rankedCities = Array.from(cities.values()).map(c => {
       const country = assertExists(countries.get(c.countryToken));
       const isoA2 = ets2IsoA2.get(country.code) ?? country.code;
       const countryCities = citiesByCountryIsoA2.get(isoA2);
@@ -549,7 +551,7 @@ export function convertToMapGeoJson(
   const cityFeatures = rankedCities.map(cityToFeature);
 
   logger.log('creating states/countries...');
-  const countryFeatures = countries.values().map(countryToFeature);
+  const countryFeatures = Array.from(countries.values()).map(countryToFeature);
 
   logger.log('creating pois...');
   const poiFeatures = pois.map(p => poiToFeature(p));

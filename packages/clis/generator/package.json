@@ -29,9 +29,10 @@
     "d3-tricontour": "^1.0.2",
     "jimp": "^0.22.12",
     "polygon-clipping": "^0.15.7",
-    "spritesmith": "^3.4.1",
+    "spritesmith": "^3.5.1",
     "tinypool": "^1.0.0",
     "tsx": "^4.7.0",
+    "vite": "7.0.4",
     "yargs": "^17.7.2"
   }
 }
