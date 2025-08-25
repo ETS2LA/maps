@@ -1,5 +1,3 @@
-# NOTE: This page will be updated as ETS2LA gets it's fork of tmudge's repo further developed.
-# For now we are mirroring the original repo, so that tmudge doesn't have to keep ETS2LA files in his deploy.
 # Trucker Mudgeon’s ATS and ETS2 Map
 
 This repo is a GitHub Pages [deploy](https://truckermudgeon.github.io) of the [`maps`](https://github.com/truckermudgeon/maps) `demo` app. It's meant to serve as a simple online reference 
